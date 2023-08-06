@@ -9,7 +9,6 @@ from portage import dbapi, catsplit, config
 
 def debug_signal(_signum, _frame):
     import pdb
-    pdb.set_trace()
 
 
 signal.signal(signal.SIGUSR1, debug_signal)
