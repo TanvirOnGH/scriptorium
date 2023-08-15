@@ -5,6 +5,8 @@
 
 mkdir -p old
 
+converted=0
+
 for file in *.*; do
     # Check if the file name matches the pattern "output-<num>.png"
     if [[ ! "$file" =~ ^output-[0-9]+\.png$ ]]; then
@@ -22,6 +24,14 @@ for file in *.*; do
 
             # Move the old file to the "old" directory
             mv "$file" old/
+
+            converted=$((converted + 1)) # Increment the counter
         fi
     fi
 done
+
+if [ "$converted" -eq 0 ]; then
+    printf "%s\n" "No files found to convert. (Ignores: output-<num>.png)"
+else
+    printf "%s\n" "Converted $converted files."
+fi
