@@ -3,7 +3,7 @@
   name = "img-utils";
   targetPkgs = pkgs: (with pkgs; [
     imagemagickBig
-    toybox
+    file
   ]);
   runScript = "bash";
 })

@@ -4,7 +4,7 @@
 # Requires: ImageMagick
 
 for file in *.*; do
-    # Requires toybox/file to check file type
+    # Requires `file` to check file type
     if [ -f "$file" ] && file --mime-type "$file" | grep -q "image"; then
         convert "$file" "output-$file.png"
     fi
