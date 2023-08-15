@@ -1,37 +1,51 @@
 #!/bin/sh
-
 # Converts all image files of any format to PNG, ensuring each converted image has a unique name
 # while ignoring already generated files
 
-mkdir -p old
+# Requires ImageMagick and file
 
-converted=0
+# Function to convert images and move to old directory
+convert_and_move() {
+    local file="$1"
+    local counter=1
+    local new_file="output-${counter}.png"
 
-for file in *.*; do
-    # Check if the file name matches the pattern "output-<num>.png"
-    if [[ ! "$file" =~ ^output-[0-9]+\.png$ ]]; then
-        # Requires `file` to check file type
-        if [ -f "$file" ] && file --mime-type "$file" | grep -q "image"; then
-            counter=1
-            new_file="output-${counter}.png"
-            while [ -e "$new_file" ]; do
-                counter=$((counter + 1))
-                new_file="output-${counter}.png"
-            done
+    while [ -e "$new_file" ]; do
+        counter=$((counter + 1))
+        new_file="output-${counter}.png"
+    done
 
-            # Requires ImageMagick
-            convert "$file" "$new_file"
+    convert "$file" "$new_file"
+    mv "$file" old/
+    converted=$((converted + 1))
+}
 
-            # Move the old file to the "old" directory
-            mv "$file" old/
-
-            converted=$((converted + 1)) # Increment the counter
-        fi
-    fi
-done
-
-if [ "$converted" -eq 0 ]; then
-    printf "%s\n" "No files found to convert. (Ignores: output-<num>.png)"
+# Main script
+if [ $# -eq 0 ]; then
+    read -p "Enter the path to the directory: " directory
 else
-    printf "%s\n" "Converted $converted files."
+    directory="$1"
+fi
+
+if [ -d "$directory" ]; then
+    cd "$directory" || exit
+    mkdir -p old
+
+    converted=0
+
+    for file in *.*; do
+        if [[ ! "$file" =~ ^output-[0-9]+\.png$ ]]; then
+            if [ -f "$file" ] && file --mime-type "$file" | grep -q "image"; then
+                convert_and_move "$file"
+            fi
+        fi
+    done
+
+    if [ "$converted" -eq 0 ]; then
+        printf "%s\n" "No files found to convert. (Ignores: output-<num>.png)"
+    else
+        printf "%s\n" "Converted $converted files."
+    fi
+else
+    printf "%s\n" "Error: Directory '$directory' not found."
 fi
