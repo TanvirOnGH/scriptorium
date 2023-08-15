@@ -3,6 +3,8 @@
 # Converts all image files of any format to PNG, ensuring each converted image has a unique name
 # while ignoring already generated files
 
+mkdir -p old
+
 for file in *.*; do
     # Check if the file name matches the pattern "output-<num>.png"
     if [[ ! "$file" =~ ^output-[0-9]+\.png$ ]]; then
@@ -17,6 +19,9 @@ for file in *.*; do
 
             # Requires ImageMagick
             convert "$file" "$new_file"
+
+            # Move the old file to the "old" directory
+            mv "$file" old/
         fi
     fi
 done
