@@ -1,5 +1,4 @@
 # Reference: <https://nixos.wiki/wiki/Python>
-
 {pkgs ? import <nixpkgs> {}}:
 (pkgs.buildFHSUserEnv {
   name = "pipzone";
