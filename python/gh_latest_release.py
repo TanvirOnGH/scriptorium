@@ -24,10 +24,9 @@ def download_latest_release(url, download_path):
 def main():
     owner = "github_owner"
     repo = "github_repo"
-    download_path = "release.zip"
+    if release_url := get_latest_release_url(owner, repo):
+        download_path = "release.zip"
 
-    release_url = get_latest_release_url(owner, repo)
-    if release_url:
         download_latest_release(release_url, download_path)
     else:
         print("Unable to fetch the latest release URL.")
