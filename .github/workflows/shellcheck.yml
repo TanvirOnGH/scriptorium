@@ -1,6 +1,9 @@
-name: "Shellcheck"
+name: Shellcheck
 on:
   push:
+    paths:
+      - "**.sh"
+  workflow_dispatch:
 jobs:
   shellcheck:
     name: Shellcheck
