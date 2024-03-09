@@ -8,5 +8,6 @@
 - [BashSheet](http://mywiki.wooledge.org/BashSheet) - Bash Reference Sheet.
 - [ABS Guide](https://tldp.org/LDP/abs/html/abs-guide.html) - Advanced Bash-Scripting Guide.
 - [Shellcheck](https://www.shellcheck.net) - Finds bugs in shell scripts.
+- [Shellharden](https://github.com/anordal/shellharden) -  The corrective bash syntax highlighter.
 - [mvdan/sh](https://github.com/mvdan/sh) - Contains a tool called `shfmt`, which can be used to format shell scripts.
 - [neurobin/shc](https://github.com/neurobin/shc) -  Shell script compiler.
