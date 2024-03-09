@@ -50,7 +50,7 @@ pre_checks() {
         mkdir -p "$upscaled_frames_dir"
     fi
 
-    read -p "Do you want to proceed? (y/n): " confirm
+    read -r -p "Do you want to proceed? (y/n): " confirm
     if [[ ! $confirm =~ ^[Yy]$ ]]; then
         exit
     fi
@@ -58,7 +58,7 @@ pre_checks() {
 
 command_exists() {
     if ! command -v "$1" >/dev/null 2>&1; then
-        printf "Error: '$1' command not found. Please install it and make sure it is in the system's PATH.\n" >&2
+        printf "Error: '%s' command not found. Please install it and make sure it is in the system's PATH.\n" "$1" >&2
         exit 1
     fi
 }
@@ -72,7 +72,7 @@ calculate_duration() {
 
 cleanup() {
     if [[ -d "$frames_dir" && -d "$upscaled_frames_dir" ]]; then
-        read -p "Do you want to clean the temporary directories? (y/n): " confirm_cleanup
+        read -r -p "Do you want to clean the temporary directories? (y/n): " confirm_cleanup
         if [[ $confirm_cleanup =~ ^[Yy]$ ]]; then
             rm -r "$frames_dir"
             rm -r "$upscaled_frames_dir"
@@ -95,7 +95,7 @@ upscale_frames() {
     fi
 
     printf "\nUpscaling frames using Real-ESRGAN-ncnn-vulkan...\n\n"
-    total_frames=$(ls -1q "$frames_dir"/*."$output_format" | wc -l)
+    total_frames=$(find "$frames_dir" -maxdepth 1 -type f -name "*.$output_format" | wc -l)
     current_frame=1
 
     for frame_path in "$frames_dir"/*."$output_format"; do
@@ -104,7 +104,7 @@ upscale_frames() {
         realesrgan-ncnn-vulkan -i "$frame_path" -o "$upscaled_frame_path" -n "$model" -s "$upscale_factor" -f "$output_format" "$tta_option"
 
         progress=$((current_frame * 100 / total_frames))
-        printf "Progress: [%-50s] %d%%\r" "$(printf '#%.0s' {1..$((progress / 2))})" "$progress"
+        printf "Progress: [%-50s] %d%%\r" "$(printf '#%.0s' $(seq 1 $((progress / 2))))" "$progress"
         ((current_frame++))
     done
     printf "\n\n"

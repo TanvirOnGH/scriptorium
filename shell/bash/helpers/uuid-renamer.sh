@@ -1,5 +1,5 @@
 #!/bin/sh
-# shellcheck disable=SC3045,SC3043
+# shellcheck disable=SC2010,SC3043,SC3045,SC3054
 
 : '
 Script to rename all files in the directory specified as the first argument with a random UUID.
@@ -38,12 +38,13 @@ generate_new_names() {
   printf "%s\n\n" "The following files in '$1' will be renamed:"
   local i=0
   for file in $files_to_rename; do
-    local new_name="$(uuidgen)"
+    local new_name
+    new_name="$(uuidgen)"
     if printf "%s\n" "$file" | grep -Eq '\.[^.]+$'; then
       new_name="$new_name.${file##*.}"
     fi
     printf "%s\n" "    $file -> $new_name"
-    new_names[$i]=$new_name
+    new_names[i]=$new_name
     i=$((i+1))
   done
 }

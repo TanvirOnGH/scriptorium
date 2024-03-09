@@ -17,7 +17,7 @@ is_git_dir() {
 
 git_pull_all() {
     if [ -d "$1" ]; then
-        cd "$1"
+        cd "$1" || exit
     else
         echo "Directory $1 not found"
         exit 1

@@ -1,4 +1,5 @@
 #!/bin/sh
+# shellcheck disable=SC3010,SC3043,SC3045
 # Converts all image files of any format to PNG, ensuring each converted image has a unique name
 # while ignoring already generated files
 
@@ -22,7 +23,7 @@ convert_and_move() {
 
 # Main script
 if [ $# -eq 0 ]; then
-    read -p "Enter the path to the directory: " directory
+    read -r -p "Enter the path to the directory: " directory
 else
     directory="$1"
 fi
