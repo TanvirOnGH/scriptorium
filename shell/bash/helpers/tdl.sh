@@ -3,7 +3,7 @@
 # <https://github.com/iyear/tdl>
 
 # Recommended
-export TDL_NS=iyear
+export TDL_NS=tg
 
 if [ "$1" = "ls" ]; then
     ./tdl chat ls
@@ -20,4 +20,5 @@ else
     $COMMAND
 fi
 
-./tdl dl -f tdl-export.json --takeout --continue --skip-same
+./tdl dl -f tdl-export.json --takeout --continue --skip-same --reconnect-timeout 0 -t 8 -l 1
+# ./tdl dl -n tg -f result.json --continue --skip-same --reconnect-timeout 0 -t 8 -l 1
