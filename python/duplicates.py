@@ -30,8 +30,7 @@ def find_duplicate_files(directory):
 if __name__ == "__main__":
     directory = input("Enter the directory path: ")
     if os.path.isdir(directory):
-        duplicate_files = find_duplicate_files(directory)
-        if duplicate_files:
+        if duplicate_files := find_duplicate_files(directory):
             print("Duplicate files found:")
             for file1, file2 in duplicate_files:
                 print(f"File 1: {file1}")
