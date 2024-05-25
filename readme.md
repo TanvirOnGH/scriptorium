@@ -21,6 +21,7 @@
 - [Bash Programming](https://mywiki.wooledge.org/BashProgramming) and [Bash Guide](https://mywiki.wooledge.org/BashGuide) - Bash Programming guide by wooledge.
 - [Devhints' bash cheatsheet](https://devhints.io/bash)
 - [Amber](https://github.com/Ph0enixKM/Amber) ([homepage](https://amber-lang.com)) - A high level programming language that compiles to Bash.
+- [google/zx](https://github.com/google/zx) -  A tool by Google for writing better scripts.
 
 ### Nix
 
