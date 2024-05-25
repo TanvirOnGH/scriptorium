@@ -20,6 +20,7 @@
 - [Bash Reference Sheet](https://mywiki.wooledge.org/BashSheet) - Bash Reference Sheet by wooledge.
 - [Bash Programming](https://mywiki.wooledge.org/BashProgramming) and [Bash Guide](https://mywiki.wooledge.org/BashGuide) - Bash Programming guide by wooledge.
 - [Devhints' bash cheatsheet](https://devhints.io/bash)
+- [Amber](https://github.com/Ph0enixKM/Amber) ([homepage](https://amber-lang.com)) - A high level programming language that compiles to Bash.
 
 ### Nix
 
