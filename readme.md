@@ -1,4 +1,4 @@
-## About
+# About
 
  Collection of scripts in various languages for automating tasks and improving workflows.
 
