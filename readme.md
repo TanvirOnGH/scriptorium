@@ -24,6 +24,9 @@
 - [Amber](https://github.com/Ph0enixKM/Amber) ([homepage](https://amber-lang.com)) - A high level programming language that compiles to Bash.
 - [google/zx](https://github.com/google/zx) -  A tool by Google for writing better scripts.
 
+## Notable mentions
+[SalamanderSecurity/PARSEC](https://codeberg.org/SalamanderSecurity/PARSEC) - A collection of system hardening and generally-useful scripts for Linux systems.
+
 ### Nix
 
 - [Alejandra](https://github.com/kamadorueda/alejandra) - The Uncompromising Nix Code Formatter.
