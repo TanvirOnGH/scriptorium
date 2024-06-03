@@ -16,6 +16,7 @@
 - [Shellharden](https://github.com/anordal/shellharden) -  The corrective bash syntax highlighter.
 - [mvdan/sh](https://github.com/mvdan/sh) - Contains a tool called `shfmt`, which can be used to format shell scripts.
 - [neurobin/shc](https://github.com/neurobin/shc) -  Shell script compiler.
+- [typeish](https://github.com/Mythra/typeish) - A runtime type checker for bash functions, implemented entirely in bash.
 - [BASH F.A.Q.](https://mywiki.wooledge.org/BashFAQ) - Answers to frequently asked questions on channel `#bash` on the `irc.libera.chat` IRC network.
 - [Bash Reference Sheet](https://mywiki.wooledge.org/BashSheet) - Bash Reference Sheet by wooledge.
 - [Bash Programming](https://mywiki.wooledge.org/BashProgramming) and [Bash Guide](https://mywiki.wooledge.org/BashGuide) - Bash Programming guide by wooledge.
