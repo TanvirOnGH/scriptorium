@@ -26,4 +26,8 @@
 
 ### Nix
 
-- [Alejandra](https://github.com/kamadorueda/alejandra) - The Uncompromising Nix Code Formatter.
+[alejandra](https://github.com/kamadorueda/alejandra) - The Uncompromising Nix Code Formatter. It applies the feedback of developers who have used Nix at scale for several years, producing a very well-grounded style guide.
+
+[statix](https://github.com/nerdypepper/statix) - lints and suggestions for the nix. Able to highlight anti-patterns in Nix code and fix them.
+
+[deadnix](https://github.com/astro/deadnix) -  Scan Nix files for dead code. Able to automatically remove unused code.
