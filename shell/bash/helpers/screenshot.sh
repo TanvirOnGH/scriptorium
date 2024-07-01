@@ -9,40 +9,40 @@ set -e
 . ../util/package-management.sh
 
 pre_checks() {
-    package_manager_update
+	package_manager_update
 
-    if ! command_exists curl; then
-        package_manager_install curl
-    fi
+	if ! command_exists curl; then
+		package_manager_install curl
+	fi
 
-    if ! command_exists scrot; then
-        package_manager_install scrot
-    fi
+	if ! command_exists scrot; then
+		package_manager_install scrot
+	fi
 
-    if [ -z "$DISPLAY" ]; then
-        die 1 "DISPLAY variable is not set"
-    fi
+	if [ -z "$DISPLAY" ]; then
+		die 1 "DISPLAY variable is not set"
+	fi
 }
 
 upload() {
-    case "$1" in
-    bashupload) curl bashupload.com -T "$2" ;;
-    keep) curl --upload-file "$2" https://free.keep.sh ;;
-    transfer) curl --upload-file "$2" https://transfer.sh/"$2" ;;
-    *) die 1 "Invalid uploader" ;;
-    esac
+	case "$1" in
+	bashupload) curl bashupload.com -T "$2" ;;
+	keep) curl --upload-file "$2" https://free.keep.sh ;;
+	transfer) curl --upload-file "$2" https://transfer.sh/"$2" ;;
+	*) die 1 "Invalid uploader" ;;
+	esac
 }
 
 run() {
-    pre_checks
+	pre_checks
 
-    scrot "$1"
-    upload "$2" "$1"
+	scrot "$1"
+	upload "$2" "$1"
 }
 
 if [ "$#" -eq 0 ]; then
-    println "Usage: <filename> <uploader>"
-    exit 1
+	println "Usage: <filename> <uploader>"
+	exit 1
 fi
 
 run "$1" "$2"

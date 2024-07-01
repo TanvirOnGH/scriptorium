@@ -13,10 +13,10 @@ set -e
 
 # Check for root
 checkRoot() {
-    if ! [ "$(id -u)" = 0 ]; then
-        echo "The Script needs to be executed as Root/Superuser!"
-        exit 13
-    fi
+	if ! [ "$(id -u)" = 0 ]; then
+		echo "The Script needs to be executed as Root/Superuser!"
+		exit 13
+	fi
 
 }
 

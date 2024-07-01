@@ -9,28 +9,28 @@ MAX_SIZE=10240
 MAX_AGE=30
 
 usage() {
-    echo "Usage: $0 [-s <size in KB>] [-a <age in days>] [-p <log directory>]"
-    echo "  -s: Set maximum file size for rotation (in KB, default: 10240 KB)"
-    echo "  -a: Set maximum age for rotation (in days, default: 30 days)"
-    echo "  -p: Set log file directory (default: /var/log)"
-    exit 1
+	echo "Usage: $0 [-s <size in KB>] [-a <age in days>] [-p <log directory>]"
+	echo "  -s: Set maximum file size for rotation (in KB, default: 10240 KB)"
+	echo "  -a: Set maximum age for rotation (in days, default: 30 days)"
+	echo "  -p: Set log file directory (default: /var/log)"
+	exit 1
 }
 
 while getopts "s:a:p:" opt; do
-    case "$opt" in
-    s)
-        MAX_SIZE="$OPTARG"
-        ;;
-    a)
-        MAX_AGE="$OPTARG"
-        ;;
-    p)
-        LOG_DIR="$OPTARG"
-        ;;
-    \?)
-        usage
-        ;;
-    esac
+	case "$opt" in
+	s)
+		MAX_SIZE="$OPTARG"
+		;;
+	a)
+		MAX_AGE="$OPTARG"
+		;;
+	p)
+		LOG_DIR="$OPTARG"
+		;;
+	\?)
+		usage
+		;;
+	esac
 done
 
 # Rotate log files based on size

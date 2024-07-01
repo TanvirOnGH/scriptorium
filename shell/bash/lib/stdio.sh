@@ -4,34 +4,34 @@
 
 # Simplified Assertion
 die() {
-    println "Error $1: $2!" 1>&2
-    exit "$1"
+	println "Error $1: $2!" 1>&2
+	exit "$1"
 }
 
 unimplemented() {
-    die 1 "Unimplemented"
+	die 1 "Unimplemented"
 }
 
 print() {
-    printf "%s" "$@"
+	printf "%s" "$@"
 }
 
 println() {
-    printf "%s\\n" "$@"
+	printf "%s\\n" "$@"
 }
 
 write_to_file() {
-    println "$1" >>"$2"
+	println "$1" >>"$2"
 }
 
 copy() {
-    if [ "$debug" = "true" ]; then
-        cp -rv "$1" "$2"
-    else
-        cp -r "$1" "$2"
-    fi
+	if [ "$debug" = "true" ]; then
+		cp -rv "$1" "$2"
+	else
+		cp -r "$1" "$2"
+	fi
 }
 
 time_and_date() {
-    date "+%d-%m-%Y %I:%M:%S %p"
+	date "+%d-%m-%Y %I:%M:%S %p"
 }

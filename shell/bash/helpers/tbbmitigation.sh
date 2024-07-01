@@ -33,4 +33,4 @@ cd ..
 rm -r unpack
 cd "$1 || exit" || exit
 mkdir -p Browser/distribution/
-printf "{\n\"policies\": {\n\"DisableAppUpdate\": true\n}\n}" > Browser/distribution/policies.json
+printf "{\n\"policies\": {\n\"DisableAppUpdate\": true\n}\n}" >Browser/distribution/policies.json

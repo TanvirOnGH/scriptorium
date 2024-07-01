@@ -13,18 +13,18 @@ set -e
 
 # Check for root
 checkRoot() {
-    if ! [ "$(id -u)" = 0 ]; then
-        echo "The Script needs to be executed as Root!"
-        exit 13
-    fi
+	if ! [ "$(id -u)" = 0 ]; then
+		echo "The Script needs to be executed as Root!"
+		exit 13
+	fi
 }
 
 # Check for $1
 checkArg() {
-    if [ -z "$1" ]; then
-        echo "Please provide a root partition as an argument! [e.g: /dev/sda1]"
-        exit 1
-    fi
+	if [ -z "$1" ]; then
+		echo "Please provide a root partition as an argument! [e.g: /dev/sda1]"
+		exit 1
+	fi
 }
 
 checkRoot
@@ -36,15 +36,15 @@ mkdir "$mount_dir"
 mount "$root_partition" "$mount_dir"
 
 (
-  cd "$mount_dir"
+	cd "$mount_dir"
 
-  # The "--make-rslave" operations are needed for systemd support.
-  mount --rbind /dev "./dev"
-  mount --make-rslave "./dev"
-  mount -t proc /proc "./proc"
-  mount --rbind /sys "./sys"
-  mount --make-rslave "./sys"
-  mount --rbind /tmp "./tmp"
+	# The "--make-rslave" operations are needed for systemd support.
+	mount --rbind /dev "./dev"
+	mount --make-rslave "./dev"
+	mount -t proc /proc "./proc"
+	mount --rbind /sys "./sys"
+	mount --make-rslave "./sys"
+	mount --rbind /tmp "./tmp"
 )
 
 chroot "$mount_dir" "$shell"
