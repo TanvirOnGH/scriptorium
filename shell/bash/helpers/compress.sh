@@ -49,17 +49,17 @@ base=$(basename "$1")
 
 if [ -f "$1" ]; then
 	if [ -z "$output_filename" ]; then
-		tar -c -$algorithm$compression_level -f "$base.$algorithm" "$1"
+		tar -c -"$algorithm""$compression_level" -f "$base.$algorithm" "$1"
 	else
-		tar -c -$algorithm$compression_level -f "$output_filename" "$1"
+		tar -c -"$algorithm""$compression_level" -f "$output_filename" "$1"
 	fi
 	echo "File '$base' compressed successfully using $algorithm algorithm with compression level $compression_level."
 elif [ -d "$1" ]; then
 	# if it's a directory, compress the contents recursively
 	if [ -z "$output_filename" ]; then
-		tar -c -$algorithm$compression_level -f "$base.$algorithm" "$base"
+		 tar -c -"$algorithm""$compression_level" -f "$base.$algorithm" "$base"
 	else
-		tar -c -$algorithm$compression_level -f "$output_filename" "$base"
+		tar -c -"$algorithm""$compression_level" -f "$output_filename" "$base"
 	fi
 	echo "Directory '$base' compressed successfully using $algorithm algorithm with compression level $compression_level."
 else

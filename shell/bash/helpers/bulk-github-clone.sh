@@ -22,7 +22,7 @@ clone_repositories() {
 	echo "$repos_info"
 	echo ""
 
-	read -p "Do you want to proceed with cloning? (y/n): " confirm
+	read -r -p "Do you want to proceed with cloning? (y/n): " confirm
 	if [ "$confirm" != "y" ]; then
 		echo "Exiting."
 		exit 0
@@ -44,11 +44,11 @@ echo "1. All repositories"
 echo "2. Only forked repositories"
 echo "3. Only source repositories (non-forks)"
 
-read -p "Enter your choice (1/2/3): " choice
+read -r -p "Enter your choice (1/2/3): " choice
 
 case $choice in
 1)
-	read -p "Enter programming language (leave blank for all): " lang
+	read -r -p "Enter programming language (leave blank for all): " lang
 	if [ -z "$lang" ]; then
 		clone_repositories "https://api.github.com/users/$username/repos"
 	else
@@ -56,7 +56,7 @@ case $choice in
 	fi
 	;;
 2)
-	read -p "Enter programming language (leave blank for all): " lang
+	read -r -p "Enter programming language (leave blank for all): " lang
 	if [ -z "$lang" ]; then
 		clone_repositories "https://api.github.com/users/$username/repos?type=forks"
 	else
@@ -64,7 +64,7 @@ case $choice in
 	fi
 	;;
 3)
-	read -p "Enter programming language (leave blank for all): " lang
+	read -r -p "Enter programming language (leave blank for all): " lang
 
 	# Replace spaces with '+'
 	lang=${lang// /+}

@@ -19,32 +19,33 @@ if [ ! -d "$directory" ]; then
   exit 1
 fi
 
-shopt -s nullglob
-files=("$directory"/*."$oldext")
-shopt -u nullglob
+# Find files with the old extension
+files=$(find "$directory" -maxdepth 1 -type f -name "*.$oldext")
 
-if [ "${#files[@]}" -eq 0 ]; then
+if [ -z "$files" ]; then
   echo "No files with the extension .$oldext found in $directory."
   exit 1
 fi
 
 echo "The following files will be renamed:"
-for file in "${files[@]}"; do
-  echo "$file -> ${file%.$oldext}.$newext"
+for file in $files; do
+  echo "$file -> ${file%."$oldext"}.$newext"
 done
 
 echo ""
 
-read -p "Do you want to proceed? (y/n) " answer
-if [[ ! $answer =~ ^[Yy]$ ]]; then
+echo "Do you want to proceed? (y/n)"
+read -r answer
+
+if [ "$answer" != "y" ] && [ "$answer" != "Y" ]; then
   echo "Operation cancelled."
   exit 1
 else
   echo ""
 fi
 
-for file in "${files[@]}"; do
-  newfile="${file%.$oldext}.$newext"
+for file in $files; do
+  newfile="${file%."$oldext"}.$newext"
   if mv -- "$file" "$newfile"; then
     echo "Renamed: $file -> $newfile"
   else

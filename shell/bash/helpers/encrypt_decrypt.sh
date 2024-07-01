@@ -1,19 +1,21 @@
 #!/bin/sh
 
 encrypt_file() {
-	local file_to_encrypt="$1"
-	local encrypted_file="$file_to_encrypt.gpg"
+	file_to_encrypt="$1"
+	encrypted_file="$file_to_encrypt.gpg"
 
 	if [ ! -f "$file_to_encrypt" ]; then
 		echo "Error: File '$file_to_encrypt' not found."
 		exit 1
 	fi
 
-	echo -n "Enter passphrase for encryption: "
-	read -s passphrase
+	printf "Enter passphrase for encryption: "
+	stty -echo
+	read -r passphrase
+	stty echo
 	echo
 
-	if ! gpg --batch --yes --passphrase "$passphrase" -c "$file_to_encrypt"; then
+	if ! echo "$passphrase" | gpg --batch --yes --passphrase-fd 0 -c "$file_to_encrypt"; then
 		echo "Error: Encryption failed."
 		exit 1
 	fi
@@ -22,18 +24,20 @@ encrypt_file() {
 }
 
 decrypt_file() {
-	local encrypted_file="$1"
+	encrypted_file="$1"
 
 	if [ ! -f "$encrypted_file" ]; then
 		echo "Error: Encrypted file '$encrypted_file' not found."
 		exit 1
 	fi
 
-	echo -n "Enter passphrase for decryption: "
-	read -s passphrase
+	printf "Enter passphrase for decryption: "
+	stty -echo
+	read -r passphrase
+	stty echo
 	echo
 
-	if ! gpg --batch --yes --passphrase "$passphrase" -o "${encrypted_file%.gpg}" -d "$encrypted_file"; then
+	if ! echo "$passphrase" | gpg --batch --yes --passphrase-fd 0 -o "${encrypted_file%.gpg}" -d "$encrypted_file"; then
 		echo "Error: Decryption failed."
 		exit 1
 	fi

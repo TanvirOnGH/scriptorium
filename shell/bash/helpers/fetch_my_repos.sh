@@ -1,12 +1,14 @@
 #!/bin/sh
 
 clone_or_pull() {
-    local repo_url=$1
-    local repo_name=$(basename "$repo_url" .git)
+    repo_url="$1"
+    repo_name=$(basename "$repo_url" .git)
     
     if [ -d "$repo_name" ]; then
         echo "Updating existing repository $repo_name..."
-        cd "$repo_name" && git pull && cd ..
+        cd "$repo_name" || exit
+        git pull
+        cd .. || exit
     else
         echo "Cloning repository $repo_name..."
         git clone "$repo_url"
@@ -14,20 +16,20 @@ clone_or_pull() {
 }
 
 fetch_github_repos() {
-    local username=$1
-    local clone_method=$2
+    username="$1"
+    clone_method="$2"
     echo "Fetching GitHub repositories for $username using $clone_method method..."
-    local url="https://api.github.com/users/$username/repos?per_page=100"
-    local repos
+    url="https://api.github.com/users/$username/repos?per_page=100"
+    repos=""
 
-    if [ "$clone_method" == "ssh" ]; then
+    if [ "$clone_method" = "ssh" ]; then
         repos=$(curl -s "$url" | grep -o '"ssh_url": *"[^"]*"' | cut -d '"' -f 4)
-    elif [ "$clone_method" == "https" ]; then
+    elif [ "$clone_method" = "https" ]; then
         repos=$(curl -s "$url" | grep -o '"clone_url": *"[^"]*"' | cut -d '"' -f 4)
     fi
 
     (
-        cd GitHub
+        cd GitHub || exit
         
         for repo in $repos; do
             clone_or_pull "$repo"
@@ -36,20 +38,20 @@ fetch_github_repos() {
 }
 
 fetch_gitlab_repos() {
-    local username=$1
-    local clone_method=$2
+    username="$1"
+    clone_method="$2"
     echo "Fetching GitLab repositories for $username using $clone_method method..."
-    local url="https://gitlab.com/api/v4/users/$username/projects?per_page=100"
-    local repos
+    url="https://gitlab.com/api/v4/users/$username/projects?per_page=100"
+    repos=""
 
-    if [ "$clone_method" == "ssh" ]; then
+    if [ "$clone_method" = "ssh" ]; then
         repos=$(curl -s "$url" | grep -o '"ssh_url_to_repo": *"[^"]*"' | cut -d '"' -f 4)
-    elif [ "$clone_method" == "https" ]; then
+    elif [ "$clone_method" = "https" ]; then
         repos=$(curl -s "$url" | grep -o '"http_url_to_repo": *"[^"]*"' | cut -d '"' -f 4)
     fi
 
     (
-        cd GitLab
+        cd GitLab || exit
 
         for repo in $repos; do
             clone_or_pull "$repo"
@@ -69,7 +71,8 @@ fi
 
 mkdir -p GitHub GitLab
 
-for param in "${@:2}"; do
+shift
+for param in "$@"; do
     service=$(echo "$param" | cut -d ':' -f 1)
     username=$(echo "$param" | cut -d ':' -f 2)
     case $service in
