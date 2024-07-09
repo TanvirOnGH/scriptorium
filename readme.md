@@ -31,3 +31,7 @@
 - [statix](https://github.com/nerdypepper/statix) - lints and suggestions for the nix. Able to highlight anti-patterns in Nix code and fix them.
 
 - [deadnix](https://github.com/astro/deadnix) -  Scan Nix files for dead code. Able to automatically remove unused code.
+
+## Notable mentions
+
+- [magika](https://github.com/google/magika) - A novel AI powered file type detection tool that relies on the recent advance of deep learning to provide accurate detection.
