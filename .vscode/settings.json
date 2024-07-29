@@ -1,7 +1,7 @@
 {
-    "[python]": {
-        "editor.defaultFormatter": "ms-python.python"
-    },
-    "python.formatting.provider": "none",
-    "workbench.colorCustomizations": {}
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.black-formatter"
+  },
+  "python.formatting.provider": "none",
+  "workbench.colorCustomizations": {}
 }
