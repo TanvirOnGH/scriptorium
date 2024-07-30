@@ -57,7 +57,7 @@ if [ -f "$1" ]; then
 elif [ -d "$1" ]; then
 	# if it's a directory, compress the contents recursively
 	if [ -z "$output_filename" ]; then
-		 tar -c -"$algorithm""$compression_level" -f "$base.$algorithm" "$base"
+		tar -c -"$algorithm""$compression_level" -f "$base.$algorithm" "$base"
 	else
 		tar -c -"$algorithm""$compression_level" -f "$output_filename" "$base"
 	fi

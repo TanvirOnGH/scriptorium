@@ -2,8 +2,8 @@
 # shellcheck disable=SC2181
 
 if [ "$#" -ne 2 ]; then
-    echo "Usage: $0 <gpg-key-id-or-email> <backup-directory>"
-    exit 1
+	echo "Usage: $0 <gpg-key-id-or-email> <backup-directory>"
+	exit 1
 fi
 
 GPG_KEY_ID="$1"
@@ -17,46 +17,46 @@ cp ~/.ssh/id_ed25519* "$BACKUP_DIR/" 2>/dev/null
 
 # Check if the SSH keys were copied
 if [ $? -eq 0 ]; then
-    echo "SSH keys have been backed up to $BACKUP_DIR."
+	echo "SSH keys have been backed up to $BACKUP_DIR."
 else
-    echo "No SSH keys were found to backup."
+	echo "No SSH keys were found to backup."
 fi
 
 # Backup GPG public keys
 gpg --export --armor "$GPG_KEY_ID" >"$BACKUP_DIR/public-keys.gpg"
 if [ $? -eq 0 ]; then
-    echo "GPG public keys have been backed up to $BACKUP_DIR/public-keys.gpg."
+	echo "GPG public keys have been backed up to $BACKUP_DIR/public-keys.gpg."
 else
-    echo "Failed to export GPG public keys for $GPG_KEY_ID."
+	echo "Failed to export GPG public keys for $GPG_KEY_ID."
 fi
 
 # Backup GPG private keys
 gpg --export-secret-keys --armor "$GPG_KEY_ID" >"$BACKUP_DIR/private-keys.gpg"
 if [ $? -eq 0 ]; then
-    echo "GPG private keys have been backed up to $BACKUP_DIR/private-keys.gpg."
+	echo "GPG private keys have been backed up to $BACKUP_DIR/private-keys.gpg."
 else
-    echo "Failed to export GPG private keys for $GPG_KEY_ID."
+	echo "Failed to export GPG private keys for $GPG_KEY_ID."
 fi
 
 # Backup GPG trust database
 gpg --export-ownertrust >"$BACKUP_DIR/ownertrust.gpg"
 if [ $? -eq 0 ]; then
-    echo "GPG ownertrust database has been backed up to $BACKUP_DIR/ownertrust.gpg."
+	echo "GPG ownertrust database has been backed up to $BACKUP_DIR/ownertrust.gpg."
 else
-    echo "Failed to export GPG ownertrust database."
+	echo "Failed to export GPG ownertrust database."
 fi
 
 # Backup GPG directories
 cp -r ~/.gnupg/openpgp-revocs.d "$BACKUP_DIR/" 2>/dev/null
 if [ $? -eq 0 ]; then
-    echo "GPG revocation certificates have been backed up to $BACKUP_DIR/openpgp-revocs.d."
+	echo "GPG revocation certificates have been backed up to $BACKUP_DIR/openpgp-revocs.d."
 else
-    echo "Failed to copy GPG revocation certificates."
+	echo "Failed to copy GPG revocation certificates."
 fi
 
 cp -r ~/.gnupg/private-keys-v1.d "$BACKUP_DIR/" 2>/dev/null
 if [ $? -eq 0 ]; then
-    echo "GPG private keys directory has been backed up to $BACKUP_DIR/private-keys-v1.d."
+	echo "GPG private keys directory has been backed up to $BACKUP_DIR/private-keys-v1.d."
 else
-    echo "Failed to copy GPG private keys directory."
+	echo "Failed to copy GPG private keys directory."
 fi

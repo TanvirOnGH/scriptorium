@@ -15,9 +15,9 @@ echo ""
 
 echo "Potential obsolete files in private-keys-v1.d:"
 for file in $files; do
-    if ! echo "$keygrips" | grep -q "$file"; then
-        echo "$file"
-    fi
+	if ! echo "$keygrips" | grep -q "$file"; then
+		echo "$file"
+	fi
 done
 
 echo ""
