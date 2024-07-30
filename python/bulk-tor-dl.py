@@ -19,7 +19,11 @@ if extension != "":
 for i in range(start_index, end_index + 1):
     # 010 to 099
     url = f"{base_url}{i:02d}{extension}" if i <= 9 else f"{base_url}{i:03d}{extension}"
-    file_name = f"{identifier}{i:02d}{extension}" if i <= 9 else f"{identifier}{i:03d}{extension}"
+    file_name = (
+        f"{identifier}{i:02d}{extension}"
+        if i <= 9
+        else f"{identifier}{i:03d}{extension}"
+    )
 
     if os.path.exists(file_name):
         print(f"Skipping {file_name}, already downloaded.")

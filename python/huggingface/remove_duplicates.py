@@ -18,7 +18,7 @@ for d in data:
     else:
         num_duplicates_removed += 1
 
-with open(file_path, 'w') as f:
+with open(file_path, "w") as f:
     json.dump(unique_data, f, indent=2)
 
 print(f"Removed {num_duplicates_removed} duplicates from {file_path}")

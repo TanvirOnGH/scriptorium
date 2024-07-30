@@ -10,5 +10,5 @@ with open(file_path) as f:
 
 sorted_data = sorted(data, key=lambda d: list(d.keys()))
 
-with open(file_path, 'w') as f:
+with open(file_path, "w") as f:
     json.dump(sorted_data, f, indent=2)

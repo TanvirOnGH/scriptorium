@@ -19,6 +19,7 @@ from stanza.models.common.constant import lcode2lang, lang2lcode
 
 from huggingface_hub import HfApi
 
+
 def get_model_card(lang):
     now = datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S.%f")[:-3]
     full_lang = lcode2lang.get(lang, None)
@@ -40,14 +41,31 @@ Find more about it in [our website](https://stanfordnlp.github.io/stanza) and ou
 This card and repo were automatically prepared with `hugging_stanza.py` in the `stanfordnlp/huggingface-models` repo
 
 Last updated {now}
-""".format(short_lang=short_lang, lang_text=lang_text, now=now)
+""".format(
+        short_lang=short_lang, lang_text=lang_text, now=now
+    )
     return model_card
 
+
 def parse_args():
-    parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-    parser.add_argument('--input_dir', type=str, default="/u/nlp/software/stanza/models/", help='Directory for loading the stanza models.  Will first try input_dir + version, if that exists')
-    parser.add_argument('--version', type=str, default="1.8.0", help='Version of stanza models to upload')
-    parser.add_argument('lang', nargs='*', help='List of languages.  Will default to all languages')
+    parser = argparse.ArgumentParser(
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter
+    )
+    parser.add_argument(
+        "--input_dir",
+        type=str,
+        default="/u/nlp/software/stanza/models/",
+        help="Directory for loading the stanza models.  Will first try input_dir + version, if that exists",
+    )
+    parser.add_argument(
+        "--version",
+        type=str,
+        default="1.8.0",
+        help="Version of stanza models to upload",
+    )
+    parser.add_argument(
+        "lang", nargs="*", help="List of languages.  Will default to all languages"
+    )
     args = parser.parse_args()
     if len(args.lang) == 0:
         # TODO: use version to get the available languages
@@ -55,12 +73,16 @@ def parse_args():
         args.lang = list_available_languages()
     return args
 
+
 def push_to_hub():
     args = parse_args()
     input_dir = args.input_dir
     if os.path.exists(input_dir + args.version):
         input_dir = input_dir + args.version
-        print("Found directory in %s - using that instead of %s" % (input_dir, args.input_dir))
+        print(
+            "Found directory in %s - using that instead of %s"
+            % (input_dir, args.input_dir)
+        )
 
     new_tag_name = "v" + args.version
 
@@ -72,16 +94,15 @@ def push_to_hub():
         # Create the repository
         repo_name = "stanza-" + model
         repo_id = "stanfordnlp/" + repo_name
-        repo_url = api.create_repo(
-            repo_id=repo_id,
-            exist_ok=True
-        )
+        repo_url = api.create_repo(repo_id=repo_id, exist_ok=True)
 
         # Find src folder
         src = Path(input_dir) / model
         if not src.exists():
             if not input_dir:
-                raise FileNotFoundError(f"Could not find models under {src}.  Perhaps you forgot to set --input_dir?")
+                raise FileNotFoundError(
+                    f"Could not find models under {src}.  Perhaps you forgot to set --input_dir?"
+                )
             else:
                 raise FileNotFoundError(f"Could not find models under {src}")
 
@@ -90,7 +111,12 @@ def push_to_hub():
 
         # Upload model + model card
         # setting delete_patterns will clean up old model files as we go
-        api.upload_folder(repo_id=repo_id, folder_path=src, commit_message=f"Add model {args.version}", delete_patterns="*.pt")
+        api.upload_folder(
+            repo_id=repo_id,
+            folder_path=src,
+            commit_message=f"Add model {args.version}",
+            delete_patterns="*.pt",
+        )
 
         # Check and delete tag if already exist
         refs = api.list_repo_refs(repo_id=repo_id)
@@ -100,9 +126,14 @@ def push_to_hub():
                 break
 
         # Tag model version
-        api.create_tag(repo_id=repo_id, tag=new_tag_name, tag_message=f"Adding new version of models {new_tag_name}")
+        api.create_tag(
+            repo_id=repo_id,
+            tag=new_tag_name,
+            tag_message=f"Adding new version of models {new_tag_name}",
+        )
         print(f"Added a tag for the new models: {new_tag_name}")
         print(f"View your model in:\n  {repo_url}\n\n")
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     push_to_hub()

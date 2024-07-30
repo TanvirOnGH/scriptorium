@@ -24,6 +24,5 @@ for cpv in vartree.cpv_all():
         print(f"Checking: {cpv}", flush=True)
         ensure_dirs(cpvpath)
         for phase in ["clean", "setup"]:
-            doebuild(cpvpath, phase, settings=settings,
-                     tree="vartree", vartree=vartree)
+            doebuild(cpvpath, phase, settings=settings, tree="vartree", vartree=vartree)
         print(f"Finished: {cpv}", flush=True)

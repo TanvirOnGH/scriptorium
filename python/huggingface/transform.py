@@ -7,7 +7,7 @@ else:
     input_file_name = input("Enter the name of the input JSON file: ")
 
 try:
-    with open(input_file_name, 'r') as file:
+    with open(input_file_name, "r") as file:
         original_data = json.load(file)
 except FileNotFoundError:
     print(f"Error: File '{input_file_name}' not found.")
@@ -34,11 +34,13 @@ for item in original_data:
 
     transformed_data.append(item)
 
-output_file_name = input("Enter the name of the output JSON file (default: transformed.json): ").strip()
+output_file_name = input(
+    "Enter the name of the output JSON file (default: transformed.json): "
+).strip()
 if not output_file_name:
     output_file_name = "transformed.json"
 
-with open(output_file_name, 'w') as file:
+with open(output_file_name, "w") as file:
     json.dump(transformed_data, file, indent=2)
 
 print(f"JSON data has been transformed and saved to '{output_file_name}'.")
