@@ -1,8 +1,8 @@
 #!/usr/bin/env ruby
 
-require 'find'
-require 'ruby-progressbar'
-require 'optparse'
+require "find"
+require "ruby-progressbar"
+require "optparse"
 
 def human_size(size)
   units = %w[B KB MB GB TB]
@@ -18,17 +18,17 @@ def analyze_directory(directory, max_depth = Float::INFINITY, show_file_summary 
   total_size = 0
   total_files = 0
   total_folders = 0
-  largest_file = ''
+  largest_file = ""
   largest_file_size = 0
-  largest_folder = ''
+  largest_folder = ""
   largest_folder_size = 0
   file_types = Hash.new(0)
 
   total_entries = Dir.glob("#{directory}/**/*", File::FNM_DOTMATCH).length
-  progressbar = ProgressBar.create(title: "Analyzing", total: total_entries, format: '%a %e %P% Processed: %c from %C')
+  progressbar = ProgressBar.create(title: "Analyzing", total: total_entries, format: "%a %e %P% Processed: %c from %C")
 
   Find.find(directory) do |path|
-    current_depth = path.split('/').count - directory.split('/').count
+    current_depth = path.split("/").count - directory.split("/").count
     next if current_depth > max_depth
 
     if File.file?(path)
@@ -43,15 +43,14 @@ def analyze_directory(directory, max_depth = Float::INFINITY, show_file_summary 
 
       if show_file_summary
         file_ext = File.extname(path)
-        file_types[file_ext[1..-1].downcase] += File.size(path) unless file_ext.empty? 
+        file_types[file_ext[1..-1].downcase] += File.size(path) unless file_ext.empty?
       end
-
     elsif File.directory?(path) && path != directory
       total_folders += 1
 
       folder_size = Dir.glob("#{path}/**/{*,.*}").
-                      select { |f| File.file?(f) }.
-                      sum { |f| File.size(f) }
+        select { |f| File.file?(f) }.
+        sum { |f| File.size(f) }
 
       if folder_size > largest_folder_size
         largest_folder = path
@@ -63,8 +62,8 @@ def analyze_directory(directory, max_depth = Float::INFINITY, show_file_summary 
   end
   progressbar.finish
 
-  return total_size, total_files, total_folders, largest_file, 
-        largest_file_size, largest_folder, largest_folder_size, file_types
+  return total_size, total_files, total_folders, largest_file,
+         largest_file_size, largest_folder, largest_folder_size, file_types
 end
 
 if ARGV.empty?
@@ -84,7 +83,7 @@ OptionParser.new do |opts|
   opts.on("-d", "--depth LEVELS", Integer, "Maximum recursion depth") do |depth|
     options[:depth] = depth
   end
-  opts.on("-s", "--summary", "Show file type summary") do 
+  opts.on("-s", "--summary", "Show file type summary") do
     options[:summary] = true
   end
 end.parse!
@@ -97,8 +96,8 @@ unless File.directory?(directory)
   exit 1
 end
 
-total_size, total_files, total_folders, largest_file, largest_file_size, 
-  largest_folder, largest_folder_size, file_types = analyze_directory(directory, max_depth, show_file_summary)
+total_size, total_files, total_folders, largest_file, largest_file_size,
+largest_folder, largest_folder_size, file_types = analyze_directory(directory, max_depth, show_file_summary)
 
 puts ""
 puts "Directory Analysis for: #{directory}"
@@ -109,7 +108,7 @@ puts "Total Folders:    #{total_folders}"
 puts "Largest File:     #{largest_file} (#{human_size(largest_file_size)})"
 puts "Largest Folder:   #{largest_folder} (#{human_size(largest_folder_size)})"
 
-if show_file_summary 
+if show_file_summary
   puts "\nFile Type Summary:"
   file_types.each do |ext, size|
     puts "- #{ext.empty? ? "(No extension)" : ext}: #{human_size(size)}"
