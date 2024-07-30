@@ -32,6 +32,14 @@
 
 - [deadnix](https://github.com/astro/deadnix) -  Scan Nix files for dead code. Able to automatically remove unused code.
 
+### Python
+
+- [black](https://github.com/psf/black) -  The uncompromising Python code formatter. It makes code review faster by producing the smallest diffs possible.
+
+### Ruby
+
+- [rufo](https://github.com/ruby-formatter/rufo) - An opinionated ruby formatter. It offers little in the way of configuration.
+
 ## Notable mentions
 
 - [magika](https://github.com/google/magika) - A novel AI powered file type detection tool that relies on the recent advance of deep learning to provide accurate detection.
