@@ -1,4 +1,5 @@
 #!/bin/sh
+# shellcheck disable=SC3045
 
 # Dependencies: ffmpeg
 
@@ -34,15 +35,15 @@ while getopts "i:o:r:h" opt; do
 done
 
 if [ -z "$INPUT_VIDEO" ]; then
-	read -p "Enter the input video file: " INPUT_VIDEO
+	read -r -p "Enter the input video file: " INPUT_VIDEO
 fi
 
 if [ -z "$OUTPUT_FOLDER" ]; then
-	read -p "Enter the output folder for extracted frames: " OUTPUT_FOLDER
+	read -r -p "Enter the output folder for extracted frames: " OUTPUT_FOLDER
 fi
 
 if [ -z "$FRAME_RATE" ]; then
-	read -p "Enter the frame rate (frames per second): " FRAME_RATE
+	read -r -p "Enter the frame rate (frames per second): " FRAME_RATE
 fi
 
 mkdir -p "$OUTPUT_FOLDER"

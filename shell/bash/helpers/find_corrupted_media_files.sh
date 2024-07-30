@@ -1,4 +1,5 @@
 #!/bin/sh
+# shellcheck disable=SC3045
 
 # Dependencies: imagemagick, ffmpeg
 
@@ -58,19 +59,19 @@ while getopts "d:i:a:v:h" opt; do
 done
 
 if [ -z "$DIR" ]; then
-	read -p "Enter the directory to search: " DIR
+	read -r -p "Enter the directory to search: " DIR
 fi
 
 if [ -z "$IMAGE_EXTS" ]; then
-	read -p "Enter image file extensions (space-separated): " IMAGE_EXTS
+	read -r -p "Enter image file extensions (space-separated): " IMAGE_EXTS
 fi
 
 if [ -z "$AUDIO_EXTS" ]; then
-	read -p "Enter audio file extensions (space-separated): " AUDIO_EXTS
+	read -r -p "Enter audio file extensions (space-separated): " AUDIO_EXTS
 fi
 
 if [ -z "$VIDEO_EXTS" ]; then
-	read -p "Enter video file extensions (space-separated): " VIDEO_EXTS
+	read -r -p "Enter video file extensions (space-separated): " VIDEO_EXTS
 fi
 
 for ext in $IMAGE_EXTS; do

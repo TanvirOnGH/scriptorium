@@ -1,4 +1,5 @@
 #!/bin/sh
+# shellcheck disable=SC3045
 
 show_help() {
 	echo "Usage: $0 [-s source_dir] [-d dest_dir] [-t file_type] [-e extensions]"
@@ -47,11 +48,11 @@ while getopts "s:d:t:e:h" opt; do
 done
 
 if [ -z "$DEST_DIR" ]; then
-	read -p "Enter the destination directory: " DEST_DIR
+	read -r -p "Enter the destination directory: " DEST_DIR
 fi
 
 if [ -z "$FILE_TYPE" ] && [ -z "$EXTS" ]; then
-	read -p "Enter the file type (video, audio, photo) or file extensions (space-separated): " input
+	read -r -p "Enter the file type (video, audio, photo) or file extensions (space-separated): " input
 	case $input in
 	video) FILE_TYPE="video" ;;
 	audio) FILE_TYPE="audio" ;;
