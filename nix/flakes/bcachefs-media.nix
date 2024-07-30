@@ -2,7 +2,6 @@
   description = "Bcachefs enabled installation media";
   inputs.nixos.url = "nixpkgs/nixos-23.11";
   outputs = {
-    self,
     nixos,
   }: {
     nixosConfigurations = {
