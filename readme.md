@@ -1,6 +1,6 @@
 # About
 
- Collection of scripts in various languages for automating tasks and improving workflows.
+A collection of scripts in various languages designed for task automation, workflow enhancement, and other miscellaneous or fun purposes.
 
 ## Reference
 
