@@ -44,6 +44,10 @@ A collection of scripts in various languages designed for task automation, workf
 
 - [nph](https://github.com/arnetheduck/nph) - An opinionated code formatter for Nim, following the great tradition of black, prettier, clang-format and more.
 
+### Lua
+
+- [StuLua](https://github.com/JohnnyMorganz/StyLua) - An opinionated code formatter for Lua, inspired by by the likes of prettier.
+
 ## Notable mentions
 
 - [magika](https://github.com/google/magika) - A novel AI powered file type detection tool that relies on the recent advance of deep learning to provide accurate detection.
