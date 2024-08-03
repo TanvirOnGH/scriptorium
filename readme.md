@@ -46,7 +46,7 @@ A collection of scripts in various languages designed for task automation, workf
 
 ### Lua
 
-- [StuLua](https://github.com/JohnnyMorganz/StyLua) - An opinionated code formatter for Lua, inspired by by the likes of prettier.
+- [StyLua](https://github.com/JohnnyMorganz/StyLua) - An opinionated code formatter for Lua, inspired by by the likes of prettier.
 
 ## Notable mentions
 
