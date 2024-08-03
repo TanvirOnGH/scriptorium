@@ -40,6 +40,10 @@ A collection of scripts in various languages designed for task automation, workf
 
 - [rufo](https://github.com/ruby-formatter/rufo) - An opinionated ruby formatter. It offers little in the way of configuration.
 
+### Nim
+
+- [nph](https://github.com/arnetheduck/nph) - An opinionated code formatter for Nim, following the great tradition of black, prettier, clang-format and more.
+
 ## Notable mentions
 
 - [magika](https://github.com/google/magika) - A novel AI powered file type detection tool that relies on the recent advance of deep learning to provide accurate detection.
