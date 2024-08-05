@@ -9,6 +9,11 @@ repos:
     hooks:
       - id: trufflehog
 
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.18.4
+    hooks:
+      - id: gitleaks
+
   - repo: https://github.com/JohnnyMorganz/StyLua
     rev: v0.20.0
     hooks:
