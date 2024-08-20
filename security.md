@@ -1,6 +1,6 @@
 # Security Policy
 
-## Hash Algorithms
+## 1. Hash Algorithms
 
 This repository does not use or prefer insecure hash algorithms like MD5 or SHA1 because:
 
@@ -8,8 +8,16 @@ This repository does not use or prefer insecure hash algorithms like MD5 or SHA1
 
 - **SHA1**: SHA1 is not collision resistant and is therefore not suitable as a cryptographic signature.
 
-### Recommendation
+### 1. Recommendation
 
 Use SHA256 or SHA3 instead.
 
 Avoid using the MD5 hash algorithm for cryptographic purposes. Instead, use more secure alternatives like SHA-256 or SHA-512. If you must use MD5, ensure that it's not used for security-critical operations and that it's not relied upon for authentication or authorization.
+
+## 2. Request Timeouts
+
+Lack of timeout in requests can lead to resource starvation and may lead to Denial of Service (DoS) attacks.
+
+### 2. Recommendation
+
+Always set a timeout for requests to prevent resource starvation and potential DoS attacks.
