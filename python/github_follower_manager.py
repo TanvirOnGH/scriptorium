@@ -2,6 +2,7 @@ import argparse
 import requests
 import time
 import os
+import re
 
 """
 Example Usage:
@@ -132,10 +133,7 @@ def main():
     )
     parser.add_argument(
         "--unfollow",
-        nargs="?",
-        const=True,
-        default=False,
-        help="Unfollow fetched users.",
+        nargs="?", const=True, default=False, help="Unfollow fetched users."
     )
     parser.add_argument(
         "--count", type=int, default=None, help="Number of users to follow/unfollow."
@@ -147,6 +145,10 @@ def main():
         help="Rate limit delay in seconds.",
     )
     args = parser.parse_args()
+
+    # Validate the username
+    if not re.match(r'^[a-zA-Z0-9-]+$', args.username):
+        parser.error("Invalid username. GitHub usernames can only contain alphanumeric characters and hyphens.")
 
     if (
         not args.followers
