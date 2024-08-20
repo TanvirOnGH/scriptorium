@@ -47,7 +47,12 @@ RATE_LIMIT_DELAY = 3  # Delay in seconds to avoid hitting rate limits
 
 def get_auth_token():
     """Fetch GitHub token from environment or prompt the user."""
-    return os.getenv("GITHUB_TOKEN") or input("Enter your GitHub token: ")
+    token = os.getenv("GITHUB_TOKEN")
+    if not token:
+        raise EnvironmentError(
+            "GitHub token not found. Please set the GITHUB_TOKEN environment variable."
+        )
+    return token
 
 
 def get_paginated_data(url, token):
@@ -133,7 +138,10 @@ def main():
     )
     parser.add_argument(
         "--unfollow",
-        nargs="?", const=True, default=False, help="Unfollow fetched users."
+        nargs="?",
+        const=True,
+        default=False,
+        help="Unfollow fetched users.",
     )
     parser.add_argument(
         "--count", type=int, default=None, help="Number of users to follow/unfollow."
@@ -147,8 +155,10 @@ def main():
     args = parser.parse_args()
 
     # Validate the username
-    if not re.match(r'^[a-zA-Z0-9-]+$', args.username):
-        parser.error("Invalid username. GitHub usernames can only contain alphanumeric characters and hyphens.")
+    if not re.match(r"^[a-zA-Z0-9-]+$", args.username):
+        parser.error(
+            "Invalid username. GitHub usernames can only contain alphanumeric characters and hyphens."
+        )
 
     if (
         not args.followers
