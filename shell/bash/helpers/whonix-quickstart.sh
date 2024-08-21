@@ -18,6 +18,28 @@ remove_whonix() {
 	sudo virsh undefine Whonix-Gateway --remove-all-storage || handle_error "Failed to remove Whonix VMs"
 }
 
+remove_whonix_stepbystep() {
+	# Power off the VMs
+	sudo virsh -c qemu:///system destroy Whonix-Gateway
+	sudo virsh -c qemu:///system destroy Whonix-Workstation
+
+	# Remove KVM VM settings
+	sudo virsh -c qemu:///system undefine Whonix-Gateway
+	sudo virsh -c qemu:///system undefine Whonix-Workstation
+
+	# Shut down KVM Network Whonix
+	sudo virsh -c qemu:///system net-destroy Whonix-External
+	sudo virsh -c qemu:///system net-destroy Whonix-Internal
+
+	# Remove Network Whonix
+	sudo virsh -c qemu:///system net-undefine Whonix-External
+	sudo virsh -c qemu:///system net-undefine Whonix-Internal
+
+	# Delete the images
+	sudo rm /var/lib/libvirt/images/Whonix-Gateway.qcow2
+	sudo rm /var/lib/libvirt/images/Whonix-Workstation.qcow2
+}
+
 check_whonix() {
 	if [ -f /var/lib/libvirt/images/Whonix-Gateway.qcow2 ] || [ -f /var/lib/libvirt/images/Whonix-Workstation.qcow2 ]; then
 		echo "Whonix VMs already exist. Do you want to remove them? (y/n)" || handle_error "Failed to prompt user"
@@ -132,6 +154,7 @@ main() {
 			cleanup) cleanup ;;
 			start_vms) start_vms ;;
 			remove_whonix) remove_whonix ;;
+			remove_whonix_stepbystep) remove_whonix_stepbystep ;;
 			*) echo "Unknown function: $arg" ;;
 			esac
 		done
