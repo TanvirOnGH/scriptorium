@@ -37,14 +37,14 @@ download_files() {
 
 	if [ -f "derivative.asc" ]; then
 		echo "GPG key file derivative.asc already exists. Deleting it."
-		rm -if derivative.asc || handle_error "Failed to delete existing GPG key file"
+		rm -i derivative.asc || handle_error "Failed to delete existing GPG key file"
 	fi
 
 	wget https://www.whonix.org/keys/derivative.asc || handle_error "Failed to download GPG key"
 
 	if [ -f "Whonix-Xfce-$WHONIX_VERSION.Intel_AMD64.qcow2.libvirt.xz.asc" ]; then
 		echo "Image signature file Whonix-Xfce-$WHONIX_VERSION.Intel_AMD64.qcow2.libvirt.xz.asc already exists. Deleting it."
-		rm -if Whonix-Xfce-$WHONIX_VERSION.Intel_AMD64.qcow2.libvirt.xz.asc || handle_error "Failed to delete existing image signature file"
+		rm -i Whonix-Xfce-$WHONIX_VERSION.Intel_AMD64.qcow2.libvirt.xz.asc || handle_error "Failed to delete existing image signature file"
 	fi
 
 	wget https://download.whonix.org/libvirt/$WHONIX_VERSION/Whonix-Xfce-$WHONIX_VERSION.Intel_AMD64.qcow2.libvirt.xz.asc || handle_error "Failed to download image signature"
@@ -94,9 +94,9 @@ move_images() {
 }
 
 cleanup() {
-	rm -rifv Whonix* || handle_error "Failed to clean up Whonix files"
-	rm -rifv WHONIX* || handle_error "Failed to clean up WHONIX files"
-	rm -ifv derivative.asc || handle_error "Failed to remove GPG key file"
+	rm -riv Whonix* || handle_error "Failed to clean up Whonix files"
+	rm -riv WHONIX* || handle_error "Failed to clean up WHONIX files"
+	rm -iv derivative.asc || handle_error "Failed to remove GPG key file"
 }
 
 start_vms() {
