@@ -13,6 +13,21 @@ handle_error() {
 	exit 1
 }
 
+remove_whonix() {
+	sudo virsh undefine Whonix-Workstation --remove-all-storage || handle_error "Failed to remove Whonix VMs"
+	sudo virsh undefine Whonix-Gateway --remove-all-storage || handle_error "Failed to remove Whonix VMs"
+}
+
+check_whonix() {
+	if [ -f /var/lib/libvirt/images/Whonix-Gateway.qcow2 ] || [ -f /var/lib/libvirt/images/Whonix-Workstation.qcow2 ]; then
+		echo "Whonix VMs already exist. Do you want to remove them? (y/n)" || handle_error "Failed to prompt user"
+		read -r response
+		if [ "$response" = "y" ]; then
+			remove_whonix || handle_error "Failed to remove Whonix VMs"
+		fi
+	fi
+}
+
 download_files() {
 	if [ -f "$IMAGE_FILE" ]; then
 		echo "Image file $IMAGE_FILE already exists. Skipping download."
@@ -91,6 +106,7 @@ start_vms() {
 
 main() {
 	if [ $# -eq 0 ]; then
+		check_whonix
 		download_files
 		verify_image
 		configure_networking
@@ -104,6 +120,7 @@ main() {
 	else
 		for arg in "$@"; do
 			case $arg in
+			check_whonix) check_whonix ;;
 			download_files) download_files ;;
 			verify_image) verify_image ;;
 			configure_networking) configure_networking ;;
@@ -114,6 +131,7 @@ main() {
 			move_images) move_images ;;
 			cleanup) cleanup ;;
 			start_vms) start_vms ;;
+			remove_whonix) remove_whonix ;;
 			*) echo "Unknown function: $arg" ;;
 			esac
 		done
