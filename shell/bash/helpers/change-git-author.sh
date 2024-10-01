@@ -1,8 +1,8 @@
 #!/bin/sh
 
 if [ "$#" -ne 4 ]; then
-  echo "Usage: $0 \"Old Author Name\" \"old.email@example.com\" \"New Author Name\" \"new.email@example.com\""
-  exit 1
+	echo "Usage: $0 \"Old Author Name\" \"old.email@example.com\" \"New Author Name\" \"new.email@example.com\""
+	exit 1
 fi
 
 OLD_NAME="$1"
