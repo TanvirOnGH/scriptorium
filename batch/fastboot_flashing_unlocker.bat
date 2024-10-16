@@ -23,13 +23,14 @@ if /i "%use_dot_slash%"=="yes" (
 if /i "%action%"=="unlock" (
     %prefix%fastboot flashing unlock
     %prefix%fastboot flashing unlock_critical
+    :: %prefix%fastboot oem unlock
 ) else if /i "%action%"=="lock" (
     %prefix%fastboot flashing lock
     %prefix%fastboot flashing lock_critical
+    :: %prefix%fastboot oem lock
 ) else (
     echo Invalid action. Please enter 'unlock' or 'lock'.
     exit /b 1
 )
 
-%prefix%fastboot oem unlock
 %prefix%fastboot reboot
